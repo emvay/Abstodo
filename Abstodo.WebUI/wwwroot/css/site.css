@@ -1,0 +1,118 @@
+html {
+    font-size: 14px;
+    overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+@media (max-width: 768px) {
+    .left-nav {
+        display:none;
+    }
+}
+@media (max-width: 992px) {
+    html {
+        font-size: 10px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+header {
+    backdrop-filter:blur(5px)
+}
+/*footer {
+    backdrop-filter: blur(10px);
+    bottom:auto!important;
+}*/
+
+.left-nav {
+    /* position: absolute;*/
+    height: 100vh;
+    /*font-size: 1vw;*/
+    background: rgba(24, 24, 16, 0.2);
+    /* border-radius: 2em; */
+    backdrop-filter: blur(25px);
+    /*border: 2px solid rgba(255, 255, 255, 0.05);*/
+    background-clip: padding-box;
+    box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+
+body {
+    background-image: url('Wallpaper/hdFernLeaves.jpg');
+    background-size: cover;
+    background-position: center;
+    /*margin-bottom: 60px;*/
+    /*    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 2rem;*/
+}
+
+.content {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/*body { Video body
+    margin-bottom: 60px;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}*/
+/*video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}*/
+/*.content { Video body
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    text-align: center;
+    padding: 100px;
+}*/
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    /*background: #7e40f6;*/
+    /* Chrome 10-25, Safari 5.1-6 */
+    /*background: -webkit-linear-gradient( to right, rgba(126, 64, 246, 1), rgba(80, 139, 252, 1) );*/
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /*background: linear-gradient( to right, rgba(126, 64, 246, 1), rgba(80, 139, 252, 1) );*/
+    background:transparent;
+}
+
+.mask-custom {
+    background: rgba(24, 24, 16, 0.2);
+    border-radius: 2em;
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    background-clip: padding-box;
+    box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+
+.table {
+    background: rgb(41 41 41 / 94%);
+}
+
+tbody, td, tfoot, th, thead, tr {
+    border-color: #85818145;
+}
+.table > :not(:last-child) > :last-child > * {
+    border-bottom-color: #999999;
+}
