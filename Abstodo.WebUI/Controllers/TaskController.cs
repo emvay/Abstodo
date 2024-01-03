@@ -18,7 +18,7 @@ namespace Abstodo.WebUI.Controllers
 
 		public IActionResult Index()
 		{
-			_taskService.GetAll();
+			_taskService.GetAllAsync();
 			return View();
 		}
 

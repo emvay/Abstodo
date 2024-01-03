@@ -1,4 +1,4 @@
-﻿using Task = Abstodo.Entities.Concrete.Task;
+﻿using Abstodo.Entities.Concrete;
 using Abstodo.Business.Abstract;
 using Abstodo.DataAccess.Abstract;
 using Abstodo.DataAccess.Concrete.EntityFramework;
@@ -7,43 +7,50 @@ namespace Abstodo.Business.Concrete
 {
     public class TaskManager : ITaskService
     {
-        ITaskDal _taskDal;
-        public TaskManager(ITaskDal taskDal)
+        private readonly EfAbstodoContext _context;
+        //Generic Reposiory, specify the Generic type T as Employee
+        private readonly IGenericRepository<TaskEntity> _repository;
+        ITaskRepository _taskRepository;
+        public TaskManager(IGenericRepository<TaskEntity> repository, ITaskRepository taskRepository, EfAbstodoContext context)
         {
-            _taskDal = taskDal;
+            _repository = repository;
+            _taskRepository = taskRepository;
+            _context = context;
         }
 
-        public void Add(Task task)
+        public async Task InsertAsync(TaskEntity taskEntity)
         {
             //ValidationTool.Validate(new ProductValidator(), product);
-            _taskDal.Add(task);
+            await _repository.InsertAsync(taskEntity);
+            //Call SaveAsync to Insert the data into the database
+            await _repository.SaveAsync();
         }
 
-        public void Update(Task task)
+        public async Task UpdateAsync(TaskEntity taskEntity)
         {
             //    ValidationTool.Validate(new ProductValidator(), product);
-            _taskDal.Update(task);
+            await _taskRepository.UpdateAsync(taskEntity);
         }
 
-        public void Delete(Task task)
+        public async Task DeleteAsync(TaskEntity taskEntity)
         {
-            _taskDal.Delete(task);
+            _taskRepository.DeleteAsync(taskEntity);
         }
 
-        public List<Task> GetAll()
+        public async Task<List<TaskEntity>> GetAllAsync()
         {
-            return _taskDal.GetAll();
+            return await _taskRepository.GetAllAsync();
         }
 
-        public List<Task> GetTasksByUserID(int userID)
-        {
-            return _taskDal.GetAll(/*p=>p.UserID == userID*/);
-        }
+        //public async Task<List<TaskEntity>> GetTasksByTaskIDAsync(int taskID)
+        //{
+        //    await _taskRepository.GetAllAsync(p=>p.UserID == userID);
+        //}
 
-        public List<Task> GetTasksByTitle(string title)
-        {
-            return _taskDal.GetAll(p => p.Title.ToLower().Contains(title.ToLower()));
-        }
+        //public async Task<List<TaskEntity>> GetTasksByTitleAsync(string title)
+        //{
+        //    await _taskRepository.GetAllAsync(p => p.Title.ToLower().Contains(title.ToLower()));
+        //}
 
 
     }

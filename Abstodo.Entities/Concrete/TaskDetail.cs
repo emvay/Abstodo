@@ -13,6 +13,6 @@ namespace Abstodo.Entities.Concrete
         public int TaskID { get; set; }
 
         // Navigation property
-        //public Task? Task { get; set; }
+        public TaskEntity? TaskEntity { get; set; }
     }
 }

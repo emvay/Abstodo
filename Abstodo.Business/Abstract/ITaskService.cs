@@ -1,14 +1,16 @@
-﻿using Task = Abstodo.Entities.Concrete.Task;
+﻿
+
+using Abstodo.Entities.Concrete;
 
 namespace Abstodo.Business.Abstract
 {
     public interface ITaskService
     {
-        void Add(Task task);
-        void Delete(Task task);
-        List<Task> GetAll();
-        List<Task> GetTasksByUserID(int userID);
-        List<Task> GetTasksByTitle(string Title);
-        void Update(Task task);
+        Task InsertAsync(TaskEntity taskEntity);
+        Task DeleteAsync(TaskEntity taskEntity);
+        Task<List<TaskEntity>> GetAllAsync();
+        //Task<List<TaskEntity>> GetTasksByTaskIDAsync(int taskID);
+        //Task<List<TaskEntity>> GetTasksByTitleAsync(string title);
+        Task UpdateAsync(TaskEntity task);
     }
 }

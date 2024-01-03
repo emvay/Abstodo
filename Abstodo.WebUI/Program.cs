@@ -2,12 +2,20 @@ using Abstodo.Business.Abstract;
 using Abstodo.Business.Concrete;
 using Abstodo.DataAccess.Abstract;
 using Abstodo.DataAccess.Concrete.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<EfAbstodoContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EfAbstodoContext"));
+});
+
 // Add services to the container.
 builder.Services.AddScoped<ITaskService, TaskManager>();
-builder.Services.AddScoped<ITaskDal, EfTaskDal>();
+builder.Services.AddScoped<ITaskRepository, EfTaskRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 builder.Services.AddControllersWithViews();
 //builder.Services.AddDbContext<AbstodoContext>();
 
