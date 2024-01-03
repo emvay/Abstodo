@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
 using System.Linq.Expressions;
 using Abstodo.DataAccess.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace Abstodo.DataAccess.Concrete.EntityFramework
 {
@@ -10,12 +11,22 @@ namespace Abstodo.DataAccess.Concrete.EntityFramework
     {
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
-            using (TContext context = new TContext())
+            try
             {
-                return filter == null ? 
-                    context.Set<TEntity>().ToList() :
-                    context.Set<TEntity>().Where(filter).ToList();
+                using (TContext context = new TContext())
+                {
+                    //return filter == null ?
+                    //    context.Set<TEntity>().ToList() :
+                    //    context.Set<TEntity>().Where(filter).ToList();
+                    return context.Set<TEntity>().ToList();
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+            
         }
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter)

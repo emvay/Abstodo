@@ -56,12 +56,12 @@ body {
     font-size: 2rem;*/
 }
 
-.content {
+/*.content {
     text-align: center;
     background: rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: 10px;
-}
+}*/
 
 /*body { Video body
     margin-bottom: 60px;
@@ -70,6 +70,7 @@ body {
     height: 100vh;
     overflow: hidden;
 }*/
+
 /*video {
     object-fit: cover;
     width: 100%;
@@ -79,13 +80,14 @@ body {
     left: 0;
     z-index: -1;
 }*/
-/*.content { Video body
-    position: relative;
-    z-index: 1;
-    color: #fff;
-    text-align: center;
-    padding: 100px;
-}*/
+    /*Video body*/
+    /*.content {
+        position: relative;
+        z-index: 1;
+        color: #fff;
+        text-align: center;
+        padding: 100px;
+    }*/
 
 .gradient-custom-2 {
     /* fallback for old browsers */

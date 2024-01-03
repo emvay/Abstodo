@@ -1,3 +1,4 @@
+using Abstodo.Business.Abstract;
 using Abstodo.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -7,14 +8,17 @@ namespace Abstodo.WebUI.Controllers
 	public class TaskController : Controller
 	{
 		private readonly ILogger<TaskController> _logger;
-
-		public TaskController(ILogger<TaskController> logger)
+        private readonly ITaskService _taskService;
+        public TaskController(ILogger<TaskController> logger, ITaskService taskService)
 		{
 			_logger = logger;
-		}
+			_taskService = taskService;
+
+        }
 
 		public IActionResult Index()
 		{
+			_taskService.GetAll();
 			return View();
 		}
 

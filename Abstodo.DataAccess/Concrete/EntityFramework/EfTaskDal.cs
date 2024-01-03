@@ -3,8 +3,13 @@ using Task = Abstodo.Entities.Concrete.Task;
 
 namespace Abstodo.DataAccess.Concrete.EntityFramework
 {
-    public class EfProductDal : EfEntityRepositoryBase<Task, AbstodoContext>, ITaskDal
+    public class EfTaskDal : EfEntityRepositoryBase<Task, AbstodoContext>, ITaskDal
     {
 
+        //public List<Task> GetAllTasks()
+        //{
+        //    // You can add any business logic or filtering here if needed
+        //    return _taskDal.GetAll();
+        //}
     }
 }

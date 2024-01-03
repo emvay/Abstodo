@@ -1,7 +1,10 @@
-﻿namespace Abstodo.Entities.Concrete
+﻿using Abstodo.DataAccess.Abstract;
+
+namespace Abstodo.Entities.Concrete
 {
-    public class UserInRole
+    public class UserInRole : IEntity
     {
+        public int ID { get; set; }
         public int UserId { get; set; }
         public int RoleId { get; set; }
 

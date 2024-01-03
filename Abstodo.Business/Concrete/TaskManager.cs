@@ -1,6 +1,7 @@
 ﻿using Task = Abstodo.Entities.Concrete.Task;
 using Abstodo.Business.Abstract;
 using Abstodo.DataAccess.Abstract;
+using Abstodo.DataAccess.Concrete.EntityFramework;
 
 namespace Abstodo.Business.Concrete
 {
@@ -36,7 +37,7 @@ namespace Abstodo.Business.Concrete
 
         public List<Task> GetTasksByUserID(int userID)
         {
-            return _taskDal.GetAll(p=>p.UserId == userID);
+            return _taskDal.GetAll(/*p=>p.UserID == userID*/);
         }
 
         public List<Task> GetTasksByTitle(string title)

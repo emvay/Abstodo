@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abstodo.DataAccess", "Absto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abstodo.Entities", "Abstodo.Entities\Abstodo.Entities.csproj", "{29030605-ADAB-4116-BF82-9740525D1836}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abstodo.UIWeb", "Abstodo.UIWeb\Abstodo.UIWeb.csproj", "{E4A4ED9C-2444-41BA-8973-B18EFD2D4ACC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{29030605-ADAB-4116-BF82-9740525D1836}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29030605-ADAB-4116-BF82-9740525D1836}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29030605-ADAB-4116-BF82-9740525D1836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4A4ED9C-2444-41BA-8973-B18EFD2D4ACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4A4ED9C-2444-41BA-8973-B18EFD2D4ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4A4ED9C-2444-41BA-8973-B18EFD2D4ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4A4ED9C-2444-41BA-8973-B18EFD2D4ACC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
