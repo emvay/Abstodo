@@ -85,10 +85,11 @@
                 </div>
                 <div class="modal-body">
                     Are you sure about that?
+                    <span id="taskIdInput"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger remove-task">Delete</button>
+                    <button type="button" id="confirmDeleteButton" data-task-id="2" class="btn btn-danger remove-task-confirmation">Delete</button>
                 </div>
             </div>
         </div>
@@ -137,7 +138,7 @@
                         <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
                     </a>
                     @* <span class="task-id" style="display: none;" data-task-id="@task.ID">@task.ID</span> *@
-                    <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="@task.ID" title="Remove">
+                    <a href="#" class="text-decoration-none remove-task" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="@task.ID" title="Remove">
                         <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
                     </a>
                 </td>
@@ -178,14 +179,20 @@
 
 <script>
     $(document).ready(function () {
-        $(".remove-task").click(function (e) {
+        var taskId;
+        $('.remove-task').click(function () {
+            taskId = $(this).data('task-id'); // Retrieve task ID
+            // Store the task ID in a hidden input in the modal
+        });
+        $(".remove-task-confirmation").click(function (e) {
+            //var taskId = $('#confirmDeleteModal').data('task-id');
             e.preventDefault(); // Prevent default action of the link
-            var taskId = $(this).data("task-id");  // Get the task ID from data attribute
+            //var taskId = $(this).data("task-id");  // Get the task ID from data attribute
             $.ajax(
                 {
                     url: '@Url.Action("Remove", "Task")', // URL to the Remove action
                     type: "POST",
-                    data: { taskId: taskId }, // Send task ID as data
+                    data: { taskID: taskId }, // Send task ID as data
                     success: function (response) {
                         if (response.success) {
                             alert("Task removed successfully");// Task removed successfully, update UI as needed

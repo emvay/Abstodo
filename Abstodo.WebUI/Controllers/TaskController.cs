@@ -61,9 +61,17 @@ namespace Abstodo.WebUI.Controllers
         //[HttpPost, ActionName("Remove")]
         public async Task<JsonResult> Remove(int taskID)
         {
-            await _taskService.DeleteAsync(taskID);
-            return Json(new { success = false, message = "Task not found" });
+            try
+            {
+                await _taskService.DeleteAsync(taskID);
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Task not found" });
+            }
+            return Json(new { success = true, message = "Task has been deleted" });
         }
+
         [HttpPost]
         public async Task<IActionResult> Update()
         {
