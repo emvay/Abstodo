@@ -1,12 +1,12 @@
 ﻿using Abstodo.DataAccess.Abstract;
-using TaskEntity = Abstodo.Entities.Concrete.TaskEntity;
+using Abstodo.Entities.Concrete;
 
 namespace Abstodo.DataAccess.Concrete.EntityFramework
 {
-    public class EfTaskRepository : GenericRepository<TaskEntity>, ITaskRepository
+    public class EfProjectRepository : GenericRepository<Project>, IProjectRepository
     {
 
-        public EfTaskRepository(EfAbstodoContext context) : base(context) 
+        public EfProjectRepository(EfAbstodoContext context) : base(context) 
         {
 
         }

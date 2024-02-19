@@ -20,7 +20,6 @@ namespace Abstodo.DataAccess.Concrete.EntityFramework
         //    }
 
         //}
-
         public EfAbstodoContext(DbContextOptions<EfAbstodoContext> options)
         : base(options)
         {
@@ -31,14 +30,13 @@ namespace Abstodo.DataAccess.Concrete.EntityFramework
             //modelBuilder.Entity<Task>().HasNoKey();
             // Other configurations...
         }
-
         public DbSet<User> Users { get; set; }
 
-        //public DbSet<Project> Projects { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public DbSet<TaskEntity> Tasks { get; set; }
-        //public DbSet<TaskDetail> TaskDetails { get; set; }
-        //public DbSet<Status> Statuses { get; set; }
+        public DbSet<TaskDetail> TaskDetails { get; set; }
+        public DbSet<Status> Statuses { get; set; }
 
-        //public DbSet<Log> Logs { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }

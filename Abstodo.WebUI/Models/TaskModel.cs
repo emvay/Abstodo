@@ -1,17 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Abstodo.Entities.Concrete;
 using System.Data.SqlTypes;
 
-namespace Abstodo.Entities.Concrete
+namespace Abstodo.WebUI.Models
 {
-    public class TaskEntity/* : IEntity*/
+    public class TaskModel/* : IEntity*/
     {
-        public TaskEntity()
+        public TaskModel()
         {
             CreatedAt = DateTime.UtcNow; // or DateTime.Now if you want local time
         }
-        [Key]
         public int ID { get; set; }
-        //public string Title { get; set; }
+        public string Title { get; set; }
         public string? Description { get; set; }
         public int PriorityID { get; set; }
         public DateTime? DueDate { get; set; }
@@ -21,10 +20,10 @@ namespace Abstodo.Entities.Concrete
         public int StatusID { get; set; }
 
         //Navigation properties
-        public Priority priority { get; set; }
-        public Project Project { get; set; }
-        public User User { get; set; }
-        public Status Status { get; set; }
+        //public Priority priority { get; set; }
+        //public Project Project { get; set; }
+        //public User User { get; set; }
+        //public Status Status { get; set; }
         //public List<TaskDetail>? TaskDetails { get; set; }
     }
 }

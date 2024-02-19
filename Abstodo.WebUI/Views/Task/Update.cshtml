@@ -1,0 +1,63 @@
+﻿@using Abstodo.Entities.Concrete
+@{
+    ViewData["Title"] = "Update";
+    @model TaskModel // Adjust the namespace accordingly
+
+}
+
+
+<div class="text-center pt-3 pb-2">
+    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+         alt="Check" width="60">
+    <h2 class="my-4">Update the Task</h2>
+</div>
+
+<div class="container-fluid mt-3 w3-border w3-padding w3-round text-white mb-0 rounded">
+    <form method="post" asp-action="Update">
+        <!-- Assuming you have a Create action in your controller -->
+
+        <div class="form-floating mb-3 mt-3">
+            <input asp-for="Description" class="form-control" style="margin-top:5px!important" placeholder="Enter Description">
+            <label class="text-black" asp-for="Description">Description</label>
+        </div>
+
+        <div class="row">
+            <div class="mt-2 mb-2 col">
+                <label asp-for="PriorityID" class="text-white">Priority</label>
+                <select asp-for="PriorityID" class="form-control" style="margin-top:5px!important" placeholder="Enter Priority">
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="2">High</option>
+                </select>
+            </div>
+
+            <div class="mt-2 mb-2 col">
+                <label asp-for="DueDate" class="text-white">Due Date</label>
+                <input asp-for="DueDate" type="date" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mt-2 mb-2 col">
+                <label asp-for="ProjectID" class="text-white">Project</label>
+                <select asp-for="ProjectID" class="form-control" style="margin-top:5px!important" placeholder="Enter Project">
+                    <option value="1">Project 1</option>
+                    <option value="2">Project 2</option>
+                    <!-- Add other project options as needed -->
+                </select>
+            </div>
+
+            <div class="mt-2 mb-2 col">
+                <label asp-for="StatusID" class="text-white">Status</label>
+                <select asp-for="StatusID" class="form-control" style="margin-top:5px!important" placeholder="Enter Status">
+                    <option value="1">Pending</option>
+                    <option value="2">InProgress</option>
+                    <option value="3">Completed</option>
+                    <!-- Add other status options as needed -->
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2 mb-2">Update</button>
+    </form>
+</div>

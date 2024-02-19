@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Abstodo.WebUI</title>
+    <script src="~/lib/jquery/dist/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     @* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"> *@
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
@@ -47,15 +48,15 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
+                        <a href="@Url.Action("Index", "Task")" class="nav-link active" aria-current="page">
                         <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                         Home
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                        <a href="@Url.Action("Add", "Task")" class="nav-link text-white">
                         <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                        Dashboard
+                        Add Task
                     </a>
                 </li>
                 <li>
@@ -118,11 +119,17 @@
                 &copy; 2023 - Abstodo.WebUI - <a class="link-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </footer> *@
+        
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @await RenderSectionAsync("Scripts", required: false)
     </section>
-    
+    <div>
+        @RenderSection("EditModal", required: false)
+    </div>
+    <div>
+        @RenderSection("DeleteModal", required: false)
+    </div>
 </body>
 </html>

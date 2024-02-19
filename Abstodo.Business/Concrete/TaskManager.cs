@@ -32,14 +32,15 @@ namespace Abstodo.Business.Concrete
             await _taskRepository.UpdateAsync(taskEntity);
         }
 
-        public async Task DeleteAsync(TaskEntity taskEntity)
+        public async Task DeleteAsync(int ID)
         {
-            _taskRepository.DeleteAsync(taskEntity);
+            await _taskRepository.DeleteAsync(ID);
         }
 
         public async Task<List<TaskEntity>> GetAllAsync()
         {
             return await _taskRepository.GetAllAsync();
+            //return await _taskRepository.GetAllWithStatusAsync();
         }
 
         //public async Task<List<TaskEntity>> GetTasksByTaskIDAsync(int taskID)

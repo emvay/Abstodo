@@ -1,5 +1,99 @@
-﻿@{
+﻿@using Abstodo.Entities.Concrete
+@{
     ViewData["Title"] = "Home Page";
+    @model List<TaskModel> // Adjust the namespace accordingly
+    TaskModel asd = new TaskModel();
+}
+@section EditModal
+{
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Modal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Testing Modal
+                    <form method="post" asp-action="Update">
+                        <!-- Assuming you have a Create action in your controller -->
+
+                        <div class="form-floating mb-3 mt-3">
+                            <input asp-for="@asd.Description" class="form-control" style="margin-top:5px!important" placeholder="Enter Description">
+                            <label class="text-black" asp-for="@asd.Description">Description</label>
+                        </div>
+
+                        <div class="row">
+                            <div class="mt-2 mb-2 col">
+                                <label asp-for="@asd.PriorityID" class="text-white">Priority</label>
+                                <select asp-for="@asd.PriorityID" class="form-control" style="margin-top:5px!important" placeholder="Enter Priority">
+                                    <option value="1">Low</option>
+                                    <option value="2">Medium</option>
+                                    <option value="2">High</option>
+                                </select>
+                            </div>
+
+                            <div class="mt-2 mb-2 col">
+                                <label asp-for="@asd.DueDate" class="text-white">Due Date</label>
+                                <input asp-for="@asd.DueDate" type="date" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="mt-2 mb-2 col">
+                                <label asp-for="@asd.ProjectID" class="text-white">Project</label>
+                                <select asp-for="@asd.ProjectID" class="form-control" style="margin-top:5px!important" placeholder="Enter Project">
+                                    <option value="1">Abstodo</option>
+                                    <!-- Add other project options as needed -->
+                                </select>
+                            </div>
+
+                            <div class="mt-2 mb-2 col">
+                                <label asp-for="@asd.StatusID" class="text-white">Status</label>
+                                <select asp-for="@asd.StatusID" class="form-control" style="margin-top:5px!important" placeholder="Enter Status">
+                                    <option value="1">To Do</option>
+                                    <option value="2">In Progress</option>
+                                    <option value="3">Done</option>
+                                    <option value="4">Removed</option>
+                                    <!-- Add other status options as needed -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-2 mb-2">Update</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Edit Modal -->
+}
+@section DeleteModal
+{
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Task Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure about that?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger remove-task">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Delete Confirmation Modal  -->
 }
 
 
@@ -12,147 +106,102 @@
 <table class="table text-white mb-0 rounded">
     <thead>
         <tr>
-            <th scope="col">Team Member</th>
-            <th scope="col">Task</th>
+            <th scope="col">Status</th>
+            <th scope="col">Description</th>
             <th scope="col">Priority</th>
             <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr class="fw-normal">
-            <th>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                     alt="avatar 1" style="width: 45px; height: auto;">
-                <span class="ms-2">Alice Mayer</span>
-            </th>
-            <td class="align-middle">
-                <span>Call Sam For payments</span>
-            </td>
-            <td class="align-middle">
-                <h6 class="mb-0"><span class="badge @(GetPriorityClass("High"))">High priority</span></h6>
-            </td>
-            <td class="align-middle">
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
-                    <i class="bi fs-5 ps-1 text-success bi-check2-circle"></i>
-                </a>
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
-                </a>
-                <a href="#!" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="fw-normal">
-            <th>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
-                     alt="avatar 1" style="width: 45px; height: auto;">
-                <span class="ms-2">Kate Moss</span>
-            </th>
-            <td class="align-middle">Make payment to Bluedart</td>
-            <td class="align-middle">
-                <h6 class="mb-0"><span class="badge @(GetPriorityClass("Low"))">Low priority</span></h6>
-            </td>
-            <td class="align-middle">
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
-                    <i class="bi fs-5 ps-1 text-success bi-check2-circle"></i>
-                </a>
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
-                </a>
-                <a href="#!" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="fw-normal">
-            <th>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-                     alt="avatar 1" style="width: 45px; height: auto;">
-                <span class="ms-2">Danny McChain</span>
-            </th>
-            <td class="align-middle">Office rent</td>
-            <td class="align-middle">
-                <h6 class="mb-0"><span class="badge @(GetPriorityClass("Middle"))">Middle priority</span></h6>
-            </td>
-            <td class="align-middle">
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
-                    <i class="bi fs-5 ps-1 text-success bi-check2-circle"></i>
-                </a>
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
-                </a>
-                <a href="#!" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="fw-normal">
-            <th>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
-                     alt="avatar 1" style="width: 45px; height: auto;">
-                <span class="ms-2">Alexa Chung</span>
-            </th>
-            <td class="align-middle">Office grocery shopping</td>
-            <td class="align-middle">
-                <h6 class="mb-0"><span class="badge @(GetPriorityClass("High"))">High priority</span></h6>
-            </td>
-            <td class="align-middle">
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
-                    <i class="bi fs-5 ps-1 text-success bi-check2-circle"></i>
-                </a>
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
-                </a>
-                <a href="#!" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="fw-normal">
-            <th class="border-0">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                     alt="avatar 1" style="width: 45px; height: auto;">
-                <span class="ms-2">Ben Smith</span>
-            </th>
-            <td class="border-0 align-middle">Ask for Lunch to Clients</td>
-            <td class="border-0 align-middle">
-                <h6 class="mb-0"><span class="badge @(GetPriorityClass("Low"))">Low priority</span></h6>
-            </td>
-            <td class="border-0 align-middle">
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
-                    <i class="bi fs-5 ps-1 text-success bi-check2-circle"></i>
-                </a>
-                <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
-                </a>
-                <a href="#!" data-mdb-toggle="tooltip" title="Remove">
-                    <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
-                </a>
-            </td>
-        </tr>
+        @foreach (var task in Model)
+        {
+
+            <tr class="fw-normal">
+
+                <th>
+                    @* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                alt="avatar 1" style="width: 45px; height: auto;"> *@
+                    <span class="ms-2">@Enum.GetName(typeof(StatusEnum), @task.StatusID)</span>
+                </th>
+                <td class="align-middle">
+                    <span>@task.Description</span>
+                </td>
+                <td class="align-middle">
+                    <h6 class="mb-0"><span class="badge @(GetPriorityClass(@task.PriorityID))">@task.PriorityID priority</span></h6>
+                </td>
+                <td class="align-middle">
+                    <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
+                        <i class="bi fs-5 ps-1 text-success bi-check2-circle"></i>
+                    </a>
+                    <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#editModal" title="Edit">
+                        <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
+                    </a>
+                    @* <span class="task-id" style="display: none;" data-task-id="@task.ID">@task.ID</span> *@
+                    <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="@task.ID" title="Remove">
+                        <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
 
+<!-- Button trigger modal -->
+@* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+</button> *@
+
+
+
 <div class="text-center text-white">
     <h1 class="display-4">Hello Da Worldo!!!</h1>
-    
+
 </div>
 
 @functions {
-    public string GetPriorityClass(string priority)
+    public string GetPriorityClass(int priorityID)
     {
-        switch (priority)
+        switch (priorityID)
         {
-            case "High":
+            case 3:
                 return "bg-danger";
-            case "Middle":
+            case 2:
                 return "bg-warning";
-            case "Low":
+            case 1:
                 return "bg-success";
             default:
                 return string.Empty;
         }
     }
 }
+
+<script>
+    $(document).ready(function () {
+        $(".remove-task").click(function (e) {
+            e.preventDefault(); // Prevent default action of the link
+            var taskId = $(this).data("task-id");  // Get the task ID from data attribute
+            $.ajax(
+                {
+                    url: '@Url.Action("Remove", "Task")', // URL to the Remove action
+                    type: "POST",
+                    data: { taskId: taskId }, // Send task ID as data
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Task removed successfully");// Task removed successfully, update UI as needed
+                            $(e.target).closest("tr").remove();// Optionally, update UI (remove task from list, etc.)
+                        }
+                        else {
+                            alert("Error: " + response.message); // Handle removal failure
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle AJAX error
+                        alert("Error: " + error);
+                    }
+                });
+        });
+    });
+</script>
+
+
