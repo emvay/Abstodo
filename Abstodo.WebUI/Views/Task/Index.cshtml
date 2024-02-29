@@ -18,7 +18,7 @@
                     Testing Modal
                     <form method="post" asp-action="Update">
                         <!-- Assuming you have a Create action in your controller -->
-
+                        <input type="hidden" asp-for="@asd.ID" id="updateTaskId">
                         <div class="form-floating mb-3 mt-3">
                             <input asp-for="@asd.Description" class="form-control" style="margin-top:5px!important" placeholder="Enter Description">
                             <label class="text-black" asp-for="@asd.Description">Description</label>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -84,17 +84,87 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure about that?
-                    <span id="taskIdInput"></span>
+                    <input type="hidden" id="hiddenTaskId" name="hiddenTaskId" />
+                    <label id="lblDeleteProject" style="display: block; "></label><br />
+                    <label id="lblDeleteDescription" style="display: block; "></label><br />
+                    <label id="lblDeleteStatus" style="display: block; "></label><br />
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="confirmDeleteButton" data-task-id="2" class="btn btn-danger remove-task-confirmation">Delete</button>
+                    <button type="button" id="confirmDeleteButton" onclick="return Delete();" data-task-id="2" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- End of Delete Confirmation Modal  -->
+}
+
+@section myModal
+{
+    <!-- AddModal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Add/Update</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <!-- Assuming you have a Create action in your controller -->
+                        <input type="hidden" id="ID" name="ID" />
+                        <div class="form-floating mb-3 mt-3">
+                            <input id="Description" class="form-control" style="margin-top:5px!important" placeholder="Enter Description">
+                            <label class="text-black" for="Description">Description</label>
+                        </div>
+
+                        <div class="row">
+                            <div class="mt-2 mb-2 col">
+                                <label for="PriorityID" class="text-white">Priority</label>
+                                <select id="PriorityID" class="form-control" style="margin-top:5px!important" placeholder="Enter Priority">
+                                    <option value="1">Low</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">High</option>
+                                </select>
+                            </div>
+
+                            <div class="mt-2 mb-2 col">
+                                <label for="DueDate" class="text-white">Due Date</label>
+                                <input id="DueDate" type="date" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="mt-2 mb-2 col">
+                                <label for="ProjectID" class="text-white">Project</label>
+                                <select id="ProjectID" class="form-control" style="margin-top:5px!important" placeholder="Enter Project">
+                                    <option value="1">Abstodo</option>
+                                    <!-- Add other project options as needed -->
+                                </select>
+                            </div>
+                            <div class="mt-2 mb-2 col">
+                                <label for="StatusID" class="text-white">Status</label>
+                                <select id="StatusID" class="form-control" style="margin-top:5px!important" placeholder="Enter Priority">
+                                    <option value="1">To Do</option>
+                                    <option value="2">In Progress</option>
+                                    <option value="3">Done</option>
+                                </select>
+                            </div>
+                        </div>
+
+                       @*  <button type="submit" class="btn btn-primary mt-2 mb-2">Add</button> *@
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="return Update();">Update</button>
+                    <button type="submit" id="btnAdd" onclick="return Add();" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of myModal  -->
 }
 
 
@@ -104,6 +174,9 @@
     <h2 class="my-4">Task List</h2>
 </div>
 
+<a href="#" class="text-decoration-none get-task" data-bs-toggle="modal" data-bs-target="#myModal" title="Add">
+    <i class="bi fs-5 ps-1 text-success bi-plus"> </i>
+</a>
 <table class="table text-white mb-0 rounded">
     <thead>
         <tr>
@@ -113,15 +186,13 @@
             <th scope="col">Actions</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var task in Model)
+    <tbody class="tbody">
+        @* @foreach (var task in Model)
         {
 
             <tr class="fw-normal">
 
                 <th>
-                    @* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                alt="avatar 1" style="width: 45px; height: auto;"> *@
                     <span class="ms-2">@Enum.GetName(typeof(StatusEnum), @task.StatusID)</span>
                 </th>
                 <td class="align-middle">
@@ -134,16 +205,15 @@
                     <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
                         <i class="bi fs-5 ps-1 text-success bi-check2-circle"></i>
                     </a>
-                    <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#editModal" title="Edit">
+                    <a href="#!" class="text-decoration-none get-update-task" data-mdb-toggle="tooltip" data-bs-toggle="modal" data-task-id="@task.ID" data-bs-target="#editModal" title="Edit">
                         <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
                     </a>
-                    @* <span class="task-id" style="display: none;" data-task-id="@task.ID">@task.ID</span> *@
-                    <a href="#" class="text-decoration-none remove-task" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="@task.ID" title="Remove">
+                    <a href="#" class="text-decoration-none get-task" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="@task.ID" title="Remove">
                         <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
                     </a>
                 </td>
             </tr>
-        }
+        } *@
     </tbody>
 </table>
 
@@ -180,7 +250,7 @@
 <script>
     $(document).ready(function () {
         var taskId;
-        $('.remove-task').click(function () {
+        $('.get-task').click(function () {
             taskId = $(this).data('task-id'); // Retrieve task ID
             // Store the task ID in a hidden input in the modal
         });
@@ -208,7 +278,185 @@
                     }
                 });
         });
+
+        $('.get-update-task').click(function () {
+            $('#taskId').val(taskId) // Retrieve task ID
+            // Store the task ID in a hidden input in the modal
+        });
     });
 </script>
 
+@* Jquery Event Handlers *@
+<script>
+    // Load Data in Table when document is ready
+    $(document).ready(function () {
+        loadData();
+    });
+    // Load Data function
+    function loadData() {
+        $.ajax({
+            url: '/Task/GetAll',
+            //url: '@Url.Action("GetAll", "Task")',
+            type: 'GET',
+            success: function (result) {
+                var html = '';
+                $.each(result.data, function (key, item) {
+                    html += '<tr>';
+                    html += '<th><span class="ms-2" > ' + item.StatusName + '</span></th>';
+                    html += '<td class="align-middle"><span>' + item.Description + '</span></td>';
+                    html += '<td class="align-middle"><h6 class="mb-0" > <span class="badge ' + item.PriorityID + '" >' + item.PriorityID + ' priority </span></h6></td>';
+                    html += '<td class="align-middle">';
+                    html += '<a href = "#!" class="text-decoration-none" data - mdb - toggle="tooltip" title = "Done" >';
+                    html += '<i class="bi fs-5 ps-1 text-success bi-check2-circle" > </i></a>';
+                    html += '<a href = "#!" class="text-decoration-none get-update-task" onclick="return getbyID(' + item.ID + ')" data-mdb-toggle="tooltip" title = "Edit" >';
+                    html += '<i class="bi fs-5 ps-1 text-warning bi-pencil-square" > </i></a>';
+                    html += "<a href = '#' class='text-decoration-none get-task' onclick='return ConfirmDelete(" + item.ID + ",\"" + item.Description + "\"" + ",\"" + item.ProjectName + "\"" + ",\"" + item.StatusName + "\");'title='Remove'>";
+                    console.log('<a href = "#" class="text-decoration-none get-task" onclick="return ConfirmDelete(' + item.ID + ',' + item.Description + ');" title="Remove">')
+                    html += '<i class="bi fs-5 ps-1 text-danger bi-trash" > </i></a></td>';
+                    html += '</tr>';
+                });
+                $('.tbody').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    // Add Employee Data Function
+    function Add() {
+        var task = {
+            Description: $('#Description').val(),
+            PriorityID: $('#PriorityID').val(),
+            DueDate: $('#DueDate').val(),
+            ProjectID: $('#ProjectID').val(),
+            StatusID: $('#StatusID').val()
+        };
+        $.ajax({
+            url: '/Task/Add',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(task),
+            success: function (result) {
+                loadData();
+                $('#myModal').modal('hide');
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    // Function for getting the Data Based upon Employee ID
+    function getbyID(TaskID) {
+        $.ajax({
+            url: "/Task/GetById/" + TaskID,
+            type: "GET",
+            contentType: 'application/json',
+            success: function (result) {
+                $('#ID').val(result.data.ID),
+                $('#Description').val(result.data.Description),
+                $('#PriorityID').val(result.data.PriorityID),
+                $('#DueDate').val(result.data.DueDate),
+                $('#ProjectID').val(result.data.ProjectID),
+                $('#StatusID').val(result.data.StatusID)
+                $('#myModal').modal('show');
+                $('#btnUpdate').show();
+                $('#btnAdd').hide();
+                $('#myModalLabelAddEmployee').hide();
+                $('#myModalLabelUpdateEmployee').show();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+        return false;
+    }
+    // Function for updating employee's record
+    function Update() {
+        var task = {
+            ID: $('#ID').val(),
+            Description: $('#Description').val(),
+            PriorityID: $('#PriorityID').val(),
+            DueDate: $('#DueDate').val(),
+            ProjectID: $('#ProjectID').val(),
+            StatusID: $('#StatusID').val()
+        };
+        $.ajax({
+            url: '/Task/Update',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(task),
+            success: function (response) {
+                loadData();
+                $('#myModal').modal('hide');
+                $('#ID').val(""),
+                $('#Description').val(""),
+                $('#PriorityID').val(""),
+                $('#DueDate').val(""),
+                $('#ProjectID').val(""),
+                $('#StatusID').val("")
+                alert(response.message);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    // Function for showing the Popup before deletion
+    // function ConfirmDelete(TaskID) {
+    //     $.ajax({
+    //         url: "/Task/GetById/" + TaskID,
+    //         type: "GET",
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             // console.log("/Task/GetById/" + TaskID)
+    //             $("#lblDeleteProject").html("<b>Name: </b>" + result.data.Project.Title);
+    //             $("#lblDeleteStatus").html("<b>Department: </b>" + result.data.StatusName);
+    //             $("#lblDeleteDescription").html("<b>Salary: </b>" + result.data.Description);
+    //             $('#hiddenTaskId').val(TaskID);
+    //             $('#deleteModal').modal('show');
+    //         },
+    //         error: function (errormessage) {
+    //             alert(errormessage.responseText);
+    //         }
+    //     });
+    // }
 
+    function ConfirmDelete(TaskID, Description, ProjectName, StatusName) {
+        // console.log("/Task/GetById/" + TaskID)
+        $("#lblDeleteProject").html("<b>Project: </b>" + ProjectName);
+        $("#lblDeleteStatus").html("<b>Task Discreption: </b>" + Description);
+        $("#lblDeleteDescription").html("<b>Status: </b>" + StatusName);
+        $('#hiddenTaskId').val(TaskID);
+        $('#deleteModal').modal('show');
+    }
+    // Function for deleting the Task
+    function Delete() {
+        var ID = $('#hiddenTaskId').val();
+        $.ajax({
+            url: "/Task/DeleteTask/" + ID,
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (result) {
+                loadData();
+                $('#deleteModal').modal('hide');
+                alert(result.message);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    // Function for clearing the textboxes
+    function clearTextBox() {
+        $('#Id').val("");
+        $('#Name').val("");
+        $('#Salary').val("");
+        $('#Department').val("");
+        $('#btnUpdate').hide();
+        $('#btnAdd').show();
+        $('#Name').css('border-color', 'lightgrey');
+        $('#Salary').css('border-color', 'lightgrey');
+        $('#Department').css('border-color', 'lightgrey');
+    }
+</script>
+@* Offf dayı sen naptın ya *@

@@ -21,9 +21,12 @@ namespace Abstodo.Business.Concrete
         public async Task InsertAsync(TaskEntity taskEntity)
         {
             //ValidationTool.Validate(new ProductValidator(), product);
-            await _repository.InsertAsync(taskEntity);
-            //Call SaveAsync to Insert the data into the database
-            await _repository.SaveAsync();
+            //await _repository.InsertAsync(taskEntity);
+            ////Call SaveAsync to Insert the data into the database
+            //await _repository.SaveAsync();
+
+            await _taskRepository.InsertAsync(taskEntity);
+            await _taskRepository.SaveAsync();
         }
 
         public async Task UpdateAsync(TaskEntity taskEntity)
@@ -42,7 +45,17 @@ namespace Abstodo.Business.Concrete
             return await _taskRepository.GetAllAsync();
             //return await _taskRepository.GetAllWithStatusAsync();
         }
+        public async Task<List<TaskEntity>> GetAllWithProjectNameAsync()
+        {
+            return await _taskRepository.GetAllWithProjectNameAsync();
+            //return await _taskRepository.GetAllWithStatusAsync();
+        }
 
+        public async Task<TaskEntity> GetByIdAsync(int ID)
+        {
+            return await _taskRepository.GetByIdAsync(ID);
+            //return await _taskRepository.GetAllWithStatusAsync();
+        }
         //public async Task<List<TaskEntity>> GetTasksByTaskIDAsync(int taskID)
         //{
         //    await _taskRepository.GetAllAsync(p=>p.UserID == userID);

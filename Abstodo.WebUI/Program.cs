@@ -22,7 +22,14 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+.AddJsonOptions(options => 
+{
+    //We need to configure the JSON serializer options if you want to keep the property names exactly as they are in our C# models (i.e., without converting them to camelCase)
+    // A property naming policy, or null to leave property names unchanged.
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
 //builder.Services.AddDbContext<AbstodoContext>();
 
 var app = builder.Build();

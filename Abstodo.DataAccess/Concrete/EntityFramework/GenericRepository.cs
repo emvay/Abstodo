@@ -16,9 +16,9 @@ namespace Abstodo.DataAccess.Concrete.EntityFramework
         {
             return await _dbSet.ToListAsync();
         }
-        public async Task<T?> GetByIdAsync(object Id)
+        public async Task<T?> GetByIdAsync(object ID)
         {
-            return await _dbSet.FindAsync(Id);
+            return await _dbSet.FindAsync(ID);
         }
         public async Task InsertAsync(T Entity)
         {
@@ -30,9 +30,9 @@ namespace Abstodo.DataAccess.Concrete.EntityFramework
             _dbSet.Update(Entity);
             await SaveAsync();
         }
-        public async Task DeleteAsync(object Id)
+        public async Task DeleteAsync(object ID)
         {
-            var entity = await _dbSet.FindAsync(Id);
+            var entity = await _dbSet.FindAsync(ID);
             if (entity != null)
             {
                 _dbSet.Remove(entity);

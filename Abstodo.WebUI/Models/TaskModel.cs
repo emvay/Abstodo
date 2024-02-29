@@ -16,14 +16,15 @@ namespace Abstodo.WebUI.Models
         public DateTime? DueDate { get; set; }
         public DateTime CreatedAt { get; set; }
         public int ProjectID { get; set; }
+        //public string? ProjectName { get; set; }
         public int UserID { get; set; }
         public int StatusID { get; set; }
 
         //Navigation properties
-        //public Priority priority { get; set; }
-        //public Project Project { get; set; }
-        //public User User { get; set; }
-        //public Status Status { get; set; }
+        public Priority Priority { get; set; }
+        public Project Project { get; set; }
+        public User User { get; set; }
+        public Status Status { get; set; }
         //public List<TaskDetail>? TaskDetails { get; set; }
     }
 }
