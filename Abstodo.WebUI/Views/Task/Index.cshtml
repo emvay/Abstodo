@@ -131,7 +131,7 @@
 
                             <div class="mt-2 mb-2 col">
                                 <label for="DueDate" class="text-white">Due Date</label>
-                                <input id="DueDate" type="date" class="form-control" />
+                                <input id="DueDate" type="datetime-local" class="form-control" />
                             </div>
                         </div>
 
@@ -157,7 +157,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" onclick="return Clear();" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="return Update();">Update</button>
                     <button type="submit" id="btnAdd" onclick="return Add();" class="btn btn-primary">Add</button>
                 </div>
@@ -339,9 +339,10 @@
             success: function (result) {
                 loadData();
                 $('#myModal').modal('hide');
+                alert(result.message);
             },
             error: function (errormessage) {
-                alert(errormessage.responseText);
+                alert(errormessage.message);
             }
         });
     }
@@ -447,16 +448,13 @@
         });
     }
     // Function for clearing the textboxes
-    function clearTextBox() {
-        $('#Id').val("");
-        $('#Name').val("");
-        $('#Salary').val("");
-        $('#Department').val("");
-        $('#btnUpdate').hide();
-        $('#btnAdd').show();
-        $('#Name').css('border-color', 'lightgrey');
-        $('#Salary').css('border-color', 'lightgrey');
-        $('#Department').css('border-color', 'lightgrey');
+    function Clear() {
+        $('#ID').val(""),
+        $('#Description').val(""),
+        $('#PriorityID').val(1),
+        $('#DueDate').val(""),
+        $('#ProjectID').val(1),
+        $('#StatusID').val(1)
     }
 </script>
 @* Offf dayı sen naptın ya *@

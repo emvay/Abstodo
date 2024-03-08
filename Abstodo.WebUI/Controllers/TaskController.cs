@@ -80,21 +80,17 @@ namespace Abstodo.WebUI.Controllers
         public async Task<IActionResult> Add([FromBody] TaskModel taskModel)
         {
             //if (ModelState.IsValid)
-            //{
             try
             {
                 TaskEntity taskEntity = _mapper.Map<TaskEntity>(taskModel);
                 taskEntity.UserID = 1;
                 await _taskService.InsertAsync(taskEntity);
-                return Json(new { success = true });
+                return Json(new { success = true, message = "Task Added!" });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Json(new { success = false });
+                return Json(new { success = false, message = "Task add failed!\n" + ex.Message });
             }
-                
-            //}
-            
         }
         #endregion
 
@@ -109,9 +105,9 @@ namespace Abstodo.WebUI.Controllers
                 await _taskService.UpdateAsync(taskEntity);
                 return Json(new { success = true, message = "Update Success" });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Json(new { success = false,  message = "Update Failed" });
+                return Json(new { success = false,  message = "Update Failed\n" + ex.Message });
             }
 
             //return Json(new { success = false, message = "Update Failed" });
@@ -124,12 +120,13 @@ namespace Abstodo.WebUI.Controllers
             try
             {
                 await _taskService.DeleteAsync(ID);
+                return Json(new { success = true, message = "Task deleted!" });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Json(new { success = false, message = "Task not found" });
+                return Json(new { success = false, message = "Task not found\n" + ex.Message });
             }
-            return Json(new { success = true, message = "Task deleted!" });
+            
         }
 
         #region working add func without JQuery
