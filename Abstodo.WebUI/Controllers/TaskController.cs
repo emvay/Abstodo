@@ -2,6 +2,7 @@ using Abstodo.Business.Abstract;
 using Abstodo.Entities.Concrete;
 using Abstodo.WebUI.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Abstodo.WebUI.Controllers
 {
+    [Authorize]
     public class TaskController : Controller
     {
         #region dependency injection
@@ -50,6 +52,7 @@ namespace Abstodo.WebUI.Controllers
                         task.ID,
                         task.Description,
                         task.PriorityID,
+                        DueDate=task.DueDate.Value.ToString("yyyy-MM-dd hh:mm"),
                         //task.Project.Title,
                         ProjectName= task.Project.Title,
                         StatusName = Enum.GetName(typeof(StatusEnum), task.StatusID)

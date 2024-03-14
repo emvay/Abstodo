@@ -175,14 +175,16 @@
 </div>
 
 <a href="#" class="text-decoration-none get-task" data-bs-toggle="modal" data-bs-target="#myModal" title="Add">
-    <i class="bi fs-5 ps-1 text-success bi-plus"> </i>
+    <i class="bi fs-4 ps-1 text-success bi-plus">Add New Task</i>
 </a>
+<span>Welcomme @User.Identity.Name</span>
 <table class="table text-white mb-0 rounded">
     <thead>
         <tr>
             <th scope="col">Status</th>
             <th scope="col">Description</th>
             <th scope="col">Priority</th>
+            <th scope="col">Due Date</th>
             <th scope="col">Actions</th>
         </tr>
     </thead>
@@ -305,6 +307,7 @@
                     html += '<th><span class="ms-2" > ' + item.StatusName + '</span></th>';
                     html += '<td class="align-middle"><span>' + item.Description + '</span></td>';
                     html += '<td class="align-middle"><h6 class="mb-0" > <span class="badge ' + item.PriorityID + '" >' + item.PriorityID + ' priority </span></h6></td>';
+                    html += '<td class="align-middle"><span>' + item.DueDate + '</span></td>';
                     html += '<td class="align-middle">';
                     html += '<a href = "#!" class="text-decoration-none" data - mdb - toggle="tooltip" title = "Done" >';
                     html += '<i class="bi fs-5 ps-1 text-success bi-check2-circle" > </i></a>';
