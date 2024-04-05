@@ -10,7 +10,7 @@ html {
 }
 @media (max-width: 768px) {
     .left-nav {
-        display:none;
+        display: none !important;
     }
 }
 @media (max-width: 992px) {
@@ -22,6 +22,14 @@ html {
 /*.modal-backdrop {
     z-index: -2;
 }*/
+
+.link-toggle::before {
+    width: 1.25em;
+    line-height: 0;
+    content: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e);
+    transition: transform .35s ease;
+    transform-origin: .5em 50%;
+}
 
 .centralize {
     position: absolute;
@@ -114,10 +122,10 @@ body {
 }
 
 .mask-custom {
-    background: rgba(24, 24, 16, 0.2);
+    background: transparent;
     border-radius: 2em;
-    backdrop-filter: blur(25px);
-    border: 2px solid rgba(255, 255, 255, 0.05);
+    /*backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.05);*/
     background-clip: padding-box;
     box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
 }
@@ -131,4 +139,13 @@ tbody, td, tfoot, th, thead, tr {
 }
 .table > :not(:last-child) > :last-child > * {
     border-bottom-color: #999999;
+}
+
+
+.sticky-sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Set sidebar height to 100vh (viewport height) */
+    overflow-y: auto; /* Allow scrolling within the sidebar if content overflows */
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Abstodo.WebUI.Controllers
@@ -17,7 +18,7 @@ namespace Abstodo.WebUI.Controllers
         private readonly ITaskService _taskService;
         private readonly IProjectService _projectService;
         private readonly IMapper _mapper;
-        public TaskController(ILogger<TaskController> logger, ITaskService taskService, IProjectService projectService, IMapper mapper)
+        public TaskController(ITaskService taskService, IProjectService projectService, IMapper mapper)
         {
             _taskService = taskService;
             _projectService = projectService;
@@ -82,11 +83,13 @@ namespace Abstodo.WebUI.Controllers
         [HttpPost, ActionName("Add")]
         public async Task<IActionResult> Add([FromBody] TaskModel taskModel)
         {
+            var identity = (ClaimsIdentity)User.Identity;
+            int IDClaim= Convert.ToInt32(identity.Claims.FirstOrDefault(t => t.Type == "ID").Value);
             //if (ModelState.IsValid)
             try
             {
                 TaskEntity taskEntity = _mapper.Map<TaskEntity>(taskModel);
-                taskEntity.UserID = 1;
+                taskEntity.UserID = IDClaim;
                 await _taskService.InsertAsync(taskEntity);
                 return Json(new { success = true, message = "Task Added!" });
             }
@@ -130,6 +133,13 @@ namespace Abstodo.WebUI.Controllers
                 return Json(new { success = false, message = "Task not found\n" + ex.Message });
             }
             
+        }
+        [HttpGet]
+        public JsonResult GetPriorityNames()
+        {
+            // Get the enum values (consider converting to a suitable format for JSON)
+            var priorityNames = Enum.GetNames(typeof(PriorityEnum));
+            return Json(priorityNames);
         }
 
         #region working add func without JQuery

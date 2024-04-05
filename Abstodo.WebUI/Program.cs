@@ -15,10 +15,15 @@ builder.Services.AddDbContext<EfAbstodoContext>(options =>
 
 
 // Add services to the container.
+builder.Services.AddScoped<IUserService, UserManager>();
+builder.Services.AddScoped<IUserRepository, EfUserRepository>();
+
 builder.Services.AddScoped<ITaskService, TaskManager>();
+builder.Services.AddScoped<ITaskRepository, EfTaskRepository>();
+
 builder.Services.AddScoped<IProjectService, ProjectManager>();
 builder.Services.AddScoped<IProjectRepository, EfProjectRepository>();
-builder.Services.AddScoped<ITaskRepository, EfTaskRepository>();
+
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.Configure<CookiePolicyOptions>(options =>

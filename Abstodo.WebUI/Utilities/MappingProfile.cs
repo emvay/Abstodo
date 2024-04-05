@@ -8,12 +8,13 @@ namespace Abstodo.WebUI.Utilities
     {
         public MappingProfile()
         {
-            CreateMap<TaskModel, TaskEntity>();
+            CreateMap<UserModel, User>();
+            CreateMap<User, UserModel>();
 
+            CreateMap<TaskModel, TaskEntity>();
             CreateMap<TaskEntity, TaskModel>();
 
             CreateMap<ProjectModel, Project>();
-
             CreateMap<Project, ProjectModel>();
         }
     }

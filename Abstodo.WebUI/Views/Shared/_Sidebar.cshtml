@@ -1,0 +1,65 @@
+﻿<ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+        <a href="@Url.Action("Index", "Task")" class="nav-link active" aria-current="page">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+            Home
+        </a>
+    </li>
+     <li class="nav-item text-white" id="projects">
+        @*<button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+    Home
+    </button>
+    <div class="collapse" id="home-collapse" style="">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+    <li><a href="#" class="link-dark rounded">Overview</a></li>
+    <li><a href="#" class="link-dark rounded">Updates</a></li>
+    <li><a href="#" class="link-dark rounded">Reports</a></li>
+    </ul>
+    </div>*@
+    </li> 
+    <li>
+        <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+            Projects
+        </a>
+    </li>
+    <li>
+        <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+            Products
+        </a>
+    </li>
+    <li>
+        <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+            Customers
+        </a>
+    </li>
+</ul>
+
+<script>
+    $(document).ready(function() {
+      // Assuming you have a URL to fetch projects (replace with your actual URL)
+      // const projectsUrl = "/Common/GelProjects"; // Or a controller action
+
+      $.ajax({
+        url: "/Common/GetProjects",
+        dataType: "json",
+            success: function (result) {
+          // Loop through projects data and create list items
+                 // html = '<li class="mb-1">';
+                var html = '<a href ="" style="color:inherit; text-decoration:none;" class="nav-link link-toggle" aria-current="page" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false"><svg class="bi me-2" width="16" height="16" ><use xlink:href = "#home"> </use></svg>Projects</a>'
+                // var html = '<a class="nav-link" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">Projects</a>';
+                html += '<div class="collapse" id="home-collapse" style="">';
+                html += '<ul class="pl-1 small">';
+                $.each(result.data, function (key, project) {
+                    html += '<li><a class="nav-link text-white" href="/Task/Index?ID=' + project.ID + '" class="link-dark rounded">' + project.Title + '</a></li>';
+                });
+                html += '</ul>';
+                html += '</div>';
+                // html += ' </li>';
+                $('#projects').html(html);
+        }
+      });
+    });
+</script>

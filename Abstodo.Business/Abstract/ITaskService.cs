@@ -1,6 +1,4 @@
-﻿
-
-using Abstodo.Entities.Concrete;
+﻿using Abstodo.Entities.Concrete;
 
 namespace Abstodo.Business.Abstract
 {

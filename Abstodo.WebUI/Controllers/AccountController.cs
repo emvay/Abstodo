@@ -2,18 +2,31 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Abstodo.Business.Abstract;
+using AutoMapper;
+using Abstodo.WebUI.Models;
 
 namespace Abstodo.WebUI.Controllers
 {
     public class AccountController : Controller
     {
+        #region dependency injection
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
+        public AccountController(IUserService userService, IMapper mapper)
+        {
+            _userService = userService;
+            _mapper = mapper;
+        }
+        #endregion
+
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(string userName, string password)
+        public async Task<IActionResult> Login(string userName, string password)
         {
             if (!string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password))
             {
@@ -24,29 +37,52 @@ namespace Abstodo.WebUI.Controllers
             //Here can be implemented checking logic from the database
             ClaimsIdentity identity = null;
             bool isAuthenticated = false;
-
-            if (userName == "Admin" && password == "password")
+            UserModel user = _mapper.Map<UserModel>(await _userService.GetMatchingUserAsync(userName, password));
+            if (user != null)
             {
-
-                //Create the identity for the user
-                identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, userName),
-                    new Claim(ClaimTypes.Role, "Admin")
+                identity = new ClaimsIdentity(new[] 
+                {
+                    new Claim("ID", user.ID.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    //new Claim(ClaimTypes.Role, "Admin")
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                // Get ID from the claims
+                //var IDClaim= identity.Claims.FirstOrDefault(t => t.Type == "ID");
+
+                ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+                
+                Task login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
 
                 isAuthenticated = true;
             }
 
-            if (userName == "Mukesh" && password == "password")
-            {
-                //Create the identity for the user
-                identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, userName),
-                    new Claim(ClaimTypes.Role, "User")
-                }, CookieAuthenticationDefaults.AuthenticationScheme);
+            #region Login testing
+            //if (userName == "Admin" && password == "password")
+            //{
 
-                isAuthenticated = true;
-            }
+            //    //Create the identity for the user
+            //    identity = new ClaimsIdentity(new[] {
+            //        new Claim(ClaimTypes.Name, userName),
+            //        new Claim(ClaimTypes.Role, "Admin")
+            //    }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            //    isAuthenticated = true;
+            //}
+
+            //if (userName == "Mukesh" && password == "password")
+            //{
+            //    //Create the identity for the user
+            //    identity = new ClaimsIdentity(new[] {
+            //        new Claim(ClaimTypes.Name, userName),
+            //        new Claim(ClaimTypes.Role, "User")
+            //    }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            //    isAuthenticated = true;
+            //}
+            #endregion
 
             if (isAuthenticated)
             {
