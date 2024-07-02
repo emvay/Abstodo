@@ -37,12 +37,19 @@ namespace Abstodo.WebUI.Controllers
 
             return View();
         }
+        [HttpGet("Task/List/{projectID}")]
+        public async Task<IActionResult> List([FromRoute] int projectID)
+        {
+            ViewBag.ProjectID = projectID;
+            return View();
+        }
 
         #region Get All Tasks
-        [HttpGet, ActionName("GetAll")]
-        public async Task<IActionResult> GetAll()
+        //[HttpGet, ActionName("GetAll")]
+        [HttpGet("Task/GetAll/{projectID}")]
+        public async Task<IActionResult> GetAll([FromRoute] int projectID)
         {
-            List<TaskModel> tasks = _mapper.Map<List<TaskModel>>(await _taskService.GetAllWithProjectNameAsync());
+            List<TaskModel> tasks = _mapper.Map<List<TaskModel>>(await _taskService.GetTasksByProjectID(projectID));
 
             if (tasks != null)
             {
@@ -119,6 +126,21 @@ namespace Abstodo.WebUI.Controllers
             //return Json(new { success = false, message = "Update Failed" });
         }
         #endregion
+
+        [HttpPost]
+        public async Task<IActionResult> CompleteTask(int ID)
+        {
+            try
+            {
+                await _taskService.CompleteTaskAsync(ID);
+                return Json(new { success = true, message = "Task completed!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Task not found\n" + ex.Message });
+            }
+
+        }
 
         [HttpPost]
         public async Task<IActionResult> DeleteTask(int ID)

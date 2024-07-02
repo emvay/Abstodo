@@ -4,7 +4,9 @@ namespace Abstodo.DataAccess.Abstract
 {
     public interface ITaskRepository : IGenericRepository<TaskEntity>
     {
-        Task<List<TaskEntity>> GetAllWithProjectNameAsync();
+        Task<List<TaskEntity>> GetTasksByProjectID(int ID);
+
+        Task CompleteTaskAsync(int Id);
         //Here, you need to define the operations which are specific to Employee Entity
 
         //Task<IEnumerable<Task>> GetAllEmployeesAsync();

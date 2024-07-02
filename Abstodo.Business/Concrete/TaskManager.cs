@@ -45,9 +45,15 @@ namespace Abstodo.Business.Concrete
             return await _taskRepository.GetAllAsync();
             //return await _taskRepository.GetAllWithStatusAsync();
         }
-        public async Task<List<TaskEntity>> GetAllWithProjectNameAsync()
+
+        public async Task CompleteTaskAsync(int ID)
         {
-            return await _taskRepository.GetAllWithProjectNameAsync();
+            await _taskRepository.CompleteTaskAsync(ID);
+        }
+
+        public async Task<List<TaskEntity>> GetTasksByProjectID(int ID)
+        {
+            return await _taskRepository.GetTasksByProjectID(ID);
             //return await _taskRepository.GetAllWithStatusAsync();
         }
 

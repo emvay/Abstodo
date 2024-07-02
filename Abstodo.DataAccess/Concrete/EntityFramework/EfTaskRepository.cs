@@ -1,4 +1,5 @@
 ﻿using Abstodo.DataAccess.Abstract;
+using Abstodo.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using TaskEntity = Abstodo.Entities.Concrete.TaskEntity;
 
@@ -13,11 +14,17 @@ namespace Abstodo.DataAccess.Concrete.EntityFramework
             _context = context;
             _dbSet = context.Set<TaskEntity>();
         }
-        public async Task<List<TaskEntity>> GetAllWithProjectNameAsync()
+
+        public async Task CompleteTaskAsync(int ID)
+        {
+            await _dbSet.Where(t => t.ID==ID).ExecuteUpdateAsync(b => b.SetProperty(u => u.StatusID, (int)StatusEnum.Done));
+        }
+
+        public async Task<List<TaskEntity>> GetTasksByProjectID(int ID)
         {
             //var tasks2= await _dbSet.ToListAsync();
             var tasks = await _context.Tasks
-            .Include(t => t.Project).Select(t => new TaskEntity
+            .Include(t => t.Project).Where(t=> t.ProjectID == ID).Select(t => new TaskEntity
             {
                 ID = t.ID,
                 Description = t.Description,

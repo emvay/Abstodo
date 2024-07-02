@@ -6,9 +6,10 @@ namespace Abstodo.Business.Abstract
     {
         Task InsertAsync(TaskEntity taskEntity);
         Task DeleteAsync(int ID);
+        Task CompleteTaskAsync(int ID); 
         Task<List<TaskEntity>> GetAllAsync();
         Task<TaskEntity> GetByIdAsync(int ID);
-        Task<List<TaskEntity>> GetAllWithProjectNameAsync();
+        Task<List<TaskEntity>> GetTasksByProjectID(int ID);
         //Task<List<TaskEntity>> GetAllWithStatusAsync();
         //Task<List<TaskEntity>> GetTasksByTaskIDAsync(int taskID);
         //Task<List<TaskEntity>> GetTasksByTitleAsync(string title);
