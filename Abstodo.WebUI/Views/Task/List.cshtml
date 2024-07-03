@@ -205,46 +205,115 @@
     <i class="bi fs-4 ps-1 text-success bi-plus">Add New Task</i>
 </a>
 <span>   Welcomme @User.Identity.Name</span>
-<table class="table text-white mb-0 rounded">
-    <thead>
-        <tr>
-            <th scope="col">Status</th>
-            <th scope="col">Description</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Due Date</th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody class="tbody">
-        @* @foreach (var task in Model)
-        {
 
-            <tr class="fw-normal">
+@* <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Open Tasks
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body"> *@
+                <table class="table text-white mb-0 rounded">
+                    <thead>
+                        <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Priority</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody opentasks">
+                        @* @foreach (var task in Model)
+                        {
 
-                <th>
-                    <span class="ms-2">@Enum.GetName(typeof(StatusEnum), @task.StatusID)</span>
-                </th>
-                <td class="align-middle">
-                    <span>@task.Description</span>
-                </td>
-                <td class="align-middle">
-                    <h6 class="mb-0"><span class="badge @(GetPriorityClass(@task.PriorityID))">@task.PriorityID priority</span></h6>
-                </td>
-                <td class="align-middle">
-                    <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
+                        <tr class="fw-normal">
+
+                        <th>
+                        <span class="ms-2">@Enum.GetName(typeof(StatusEnum), @task.StatusID)</span>
+                        </th>
+                        <td class="align-middle">
+                        <span>@task.Description</span>
+                        </td>
+                        <td class="align-middle">
+                        <h6 class="mb-0"><span class="badge @(GetPriorityClass(@task.PriorityID))">@task.PriorityID priority</span></h6>
+                        </td>
+                        <td class="align-middle">
+                        <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
                         <i class="bi fs-5 ps-1 text-success bi-check2-circle"></i>
-                    </a>
-                    <a href="#!" class="text-decoration-none get-update-task" data-mdb-toggle="tooltip" data-bs-toggle="modal" data-task-id="@task.ID" data-bs-target="#editModal" title="Edit">
+                        </a>
+                        <a href="#!" class="text-decoration-none get-update-task" data-mdb-toggle="tooltip" data-bs-toggle="modal" data-task-id="@task.ID" data-bs-target="#editModal" title="Edit">
                         <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
-                    </a>
-                    <a href="#" class="text-decoration-none get-task" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="@task.ID" title="Remove">
+                        </a>
+                        <a href="#" class="text-decoration-none get-task" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="@task.ID" title="Remove">
                         <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
-                    </a>
-                </td>
-            </tr>
-        } *@
-    </tbody>
-</table>
+                        </a>
+                        </td>
+                        </tr>
+                        } *@
+                    </tbody>
+                </table>
+@*             </div>
+        </div>
+    </div>
+</div> *@
+<div class="accordion" id="accordionExample2">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Completed Tasks
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample2" style="">
+            <div class="accordion-body">
+                <table class="table text-white mb-0 rounded">
+                    <thead>
+                        <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Priority</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody completedtasks">
+                        @* @foreach (var task in Model)
+                        {
+
+                        <tr class="fw-normal">
+
+                        <th>
+                        <span class="ms-2">@Enum.GetName(typeof(StatusEnum), @task.StatusID)</span>
+                        </th>
+                        <td class="align-middle">
+                        <span>@task.Description</span>
+                        </td>
+                        <td class="align-middle">
+                        <h6 class="mb-0"><span class="badge @(GetPriorityClass(@task.PriorityID))">@task.PriorityID priority</span></h6>
+                        </td>
+                        <td class="align-middle">
+                        <a href="#!" class="text-decoration-none" data-mdb-toggle="tooltip" title="Done">
+                        <i class="bi fs-5 ps-1 text-success bi-check2-circle"></i>
+                        </a>
+                        <a href="#!" class="text-decoration-none get-update-task" data-mdb-toggle="tooltip" data-bs-toggle="modal" data-task-id="@task.ID" data-bs-target="#editModal" title="Edit">
+                        <i class="bi fs-5 ps-1 text-warning bi-pencil-square"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none get-task" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="@task.ID" title="Remove">
+                        <i class="bi fs-5 ps-1 text-danger bi-trash"></i>
+                        </a>
+                        </td>
+                        </tr>
+                        } *@
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <!-- Button trigger modal -->
@@ -341,24 +410,44 @@
             url: '/Task/GetAll/' + @ViewBag.ProjectID,
             type: 'GET',
             success: function (result) {
-                var html = '';
+                var openTasks = '';
+                var completedTasks = '';
                 $.each(result.data, function (key, item) {
-                    html += '<tr>'; 
-                    html += '<th><span class="ms-2" > ' + item.StatusName + '</span></th>';
-                    html += '<td class="align-middle"><span>' + item.Description + '</span></td>';
-                            html += '<td class="align-middle"><h6 class="mb-0" > <span class="badge ' + item.ProjectID + '" >' + priorityLabels[item.PriorityID-1] + ' priority </span></h6></td>';
-                    html += '<td class="align-middle"><span>' + item.DueDate + '</span></td>';
-                    html += '<td class="align-middle">';
-                    html += '<a href = "#!" class="text-decoration-none" data-mdb-toggle="tooltip" onclick="return ConfirmCompleteTask(' + item.ID + ');" title = "Done" >';
-                    html += '<i class="bi fs-5 ps-1 text-success bi-check2-circle" > </i></a>';
-                    html += '<a href = "#!" class="text-decoration-none get-update-task" onclick="return getbyID(' + item.ID + ')" data-mdb-toggle="tooltip" title = "Edit" >';
-                    html += '<i class="bi fs-5 ps-1 text-warning bi-pencil-square" > </i></a>';
-                    html += "<a href = '#' class='text-decoration-none get-task' onclick='return ConfirmDelete(" + item.ID + ",\"" + item.Description + "\"" + ",\"" + item.ProjectName + "\"" + ",\"" + item.StatusName + "\");'title='Remove'>";
-                    console.log('<a href = "#" class="text-decoration-none get-task" onclick="return ConfirmDelete(' + item.ID + ',' + item.Description + ');" title="Remove">')
-                    html += '<i class="bi fs-5 ps-1 text-danger bi-trash" > </i></a></td>';
-                    html += '</tr>';
+                    if (item.StatusName != "Done") {
+                        openTasks += '<tr>';
+                        openTasks += '<th><span class="ms-2" > ' + item.StatusName + '</span></th>';
+                        openTasks += '<td class="align-middle"><span>' + item.Description + '</span></td>';
+                        openTasks += '<td class="align-middle"><h6 class="mb-0" > <span class="badge ' + item.ProjectID + '" >' + priorityLabels[item.PriorityID - 1] + ' priority </span></h6></td>';
+                        openTasks += '<td class="align-middle"><span>' + item.DueDate + '</span></td>';
+                        openTasks += '<td class="align-middle">';
+                        openTasks += '<a href = "#!" class="text-decoration-none" data-mdb-toggle="tooltip" onclick="return ConfirmCompleteTask(' + item.ID + ');" title = "Done" >';
+                        openTasks += '<i class="bi fs-5 ps-1 text-success bi-check2-circle" > </i></a>';
+                        openTasks += '<a href = "#!" class="text-decoration-none get-update-task" onclick="return getbyID(' + item.ID + ')" data-mdb-toggle="tooltip" title = "Edit" >';
+                        openTasks += '<i class="bi fs-5 ps-1 text-warning bi-pencil-square" > </i></a>';
+                        openTasks += "<a href = '#' class='text-decoration-none get-task' onclick='return ConfirmDelete(" + item.ID + ",\"" + item.Description + "\"" + ",\"" + item.ProjectName + "\"" + ",\"" + item.StatusName + "\");'title='Remove'>";
+                        // console.log('<a href = "#" class="text-decoration-none get-task" onclick="return ConfirmDelete(' + item.ID + ',' + item.Description + ');" title="Remove">')
+                        openTasks += '<i class="bi fs-5 ps-1 text-danger bi-trash" > </i></a></td>';
+                        openTasks += '</tr>';
+                    }
+                    else {
+                        completedTasks += '<tr>';
+                        completedTasks += '<th><span class="ms-2" > ' + item.StatusName + '</span></th>';
+                        completedTasks += '<td class="align-middle"><span>' + item.Description + '</span></td>';
+                        completedTasks += '<td class="align-middle"><h6 class="mb-0" > <span class="badge ' + item.ProjectID + '" >' + priorityLabels[item.PriorityID - 1] + ' priority </span></h6></td>';
+                        completedTasks += '<td class="align-middle"><span>' + item.DueDate + '</span></td>';
+                        completedTasks += '<td class="align-middle">';
+                        completedTasks += '<a href = "#!" class="text-decoration-none get-update-task" onclick="return getbyID(' + item.ID + ')" data-mdb-toggle="tooltip" title = "Edit" >';
+                        completedTasks += '<i class="bi fs-5 ps-1 text-warning bi-pencil-square" > </i></a>';
+                        completedTasks += "<a href = '#' class='text-decoration-none get-task' onclick='return ConfirmDelete(" + item.ID + ",\"" + item.Description + "\"" + ",\"" + item.ProjectName + "\"" + ",\"" + item.StatusName + "\");'title='Remove'>";
+                        // console.log('<a href = "#" class="text-decoration-none get-task" onclick="return ConfirmDelete(' + item.ID + ',' + item.Description + ');" title="Remove">')
+                        completedTasks += '<i class="bi fs-5 ps-1 text-danger bi-trash" > </i></a></td>';
+                        completedTasks += '</tr>';
+                    }
+                    
                 });
-                $('.tbody').html(html);
+                $('.opentasks').html(openTasks);
+                $('.completedtasks').html(completedTasks);
+                
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
@@ -382,7 +471,7 @@
             success: function (result) {
                 loadData();
                 $('#myModal').modal('hide');
-                alert(result.message);
+                // alert(result.message);
             },
             error: function (errormessage) {
                 alert(errormessage.message);
@@ -438,7 +527,7 @@
                 $('#DueDate').val(""),
                 $('#ProjectID').val(""),
                 $('#StatusID').val("")
-                alert(response.message);
+                // alert(response.message);
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
@@ -479,7 +568,7 @@
             success: function (result) {
                 loadData();
                 $('#completeTaskModal').modal('hide');
-                alert(result.message);
+                // alert(result.message);
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
@@ -508,7 +597,7 @@
             success: function (result) {
                 loadData();
                 $('#deleteModal').modal('hide');
-                alert(result.message);
+                // alert(result.message);
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);

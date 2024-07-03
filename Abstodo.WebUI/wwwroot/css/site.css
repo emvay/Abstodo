@@ -19,11 +19,25 @@ html {
     }
 }
 
-/*.modal-backdrop {
+.accordion-button {
+    color: #409586;
+    background-color: #00000096;
+    width: 25%;
+}
+
+.accordion-item {
+    background-color: #fff0;
+    margin-top: 1rem;
+}
+.accordion-button:not(.collapsed) {
+    color: #6ae8fd;
+    background-color: #00000073;
+}
+    /*.modal-backdrop {
     z-index: -2;
 }*/
 
-.link-toggle::before {
+    .link-toggle::before {
     width: 1.25em;
     line-height: 0;
     content: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e);
@@ -131,11 +145,12 @@ body {
 }
 
 .table {
-    background: rgb(41 41 41 / 94%);
+    /*background: rgb(41 41 41 / 94%);*/
+    background: rgb(0 0 0 / 54%);
 }
 
 tbody, td, tfoot, th, thead, tr {
-    border-color: #85818145;
+    border-color: #29292957;
 }
 .table > :not(:last-child) > :last-child > * {
     border-bottom-color: #999999;
