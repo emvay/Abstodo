@@ -1,4 +1,5 @@
 using Abstodo.Business.Abstract;
+using Abstodo.Business.Common;
 using Abstodo.Business.Concrete;
 using Abstodo.DataAccess.Abstract;
 using Abstodo.DataAccess.Concrete.EntityFramework;
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<EfAbstodoContext>(options =>
 
 
 // Add services to the container.
+builder.Services.AddScoped<ICommonService, CommonManager>();
+
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IUserRepository, EfUserRepository>();
 

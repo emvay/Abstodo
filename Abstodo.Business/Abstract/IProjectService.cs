@@ -7,6 +7,8 @@ namespace Abstodo.Business.Abstract
         Task InsertAsync(Project project);
         Task DeleteAsync(Project project);
         Task<List<Project>> GetAllAsync();
+        Task<int> GetAllCompletedProjectCount(int userId);
+        Task<int> GetAllOpenProjectCount(int userId);
         //Task<List<TaskEntity>> GetAllWithStatusAsync();
         //Task<List<TaskEntity>> GetTasksByTaskIDAsync(int taskID);
         //Task<List<TaskEntity>> GetTasksByTitleAsync(string title);

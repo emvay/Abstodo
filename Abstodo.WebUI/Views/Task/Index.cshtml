@@ -3,3 +3,57 @@
 *@
 @{
 }
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="counter-container shadow openProjectCountContainer">
+                @* Space For openProjectCount *@
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="counter-container shadow completedProjectCountContainer">
+                @* Space For completedProjectCount *@
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="counter-container shadow openTaskCountContainer">
+                @* Space For OpenTaskCount *@
+                <span class="counter OpenTaskCountCS"></span>
+            </div>
+        </div>
+        <div class="col ">
+            <div class="counter-container shadow completedTaskCountContainer">
+                @* Space For completedTaskCount *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        loadData();
+    });
+ 
+
+    function loadData() {
+        $.ajax({
+            url: '/Task/LoadIndex',
+            type: 'GET',
+            contentType: 'application/json',
+            success: function (result) {
+
+                $('.openTaskCountContainer').html('<div class="counter" data-target="' + result.data.OpenTaskCount + '">' + result.data.OpenTaskCount + '</div><span>Open Tasks</span>');
+                $('.completedTaskCountContainer').html('<div class="counter" data-target="' + result.data.CompletedTaskCount + '">' + result.data.CompletedTaskCount + '</div><span>Completed Tasks</span>');
+
+                $('.openProjectCountContainer').html('<div class="counter" data-target="' + result.data.OpenProjectCount + '">' + result.data.OpenProjectCount + '</div><span>Open Projects</span>');
+                $('.completedProjectCountContainer').html('<div class="counter" data-target="' + result.data.CompletedProjectCount + '">' + result.data.CompletedProjectCount + '</div><span>Completed Projects</span>');
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    };
+</script>

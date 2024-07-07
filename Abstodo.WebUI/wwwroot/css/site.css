@@ -19,6 +19,34 @@ html {
     }
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+.counter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 30px 50px;
+    background: rgb(0 0 0 / 36%);
+    padding-bottom: 1rem;
+    border-radius: 5rem 0.25rem !important;
+}
+
+.counter {
+    font-size: 10rem;
+    margin-top: 10px;
+}
+
+@media (max-width: 580px) {
+    body {
+        flex-direction: column;
+    }
+}
+
 .accordion-button {
     color: #409586;
     background-color: #00000096;

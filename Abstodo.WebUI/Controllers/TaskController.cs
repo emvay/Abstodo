@@ -1,4 +1,5 @@
 using Abstodo.Business.Abstract;
+using Abstodo.Business.Common;
 using Abstodo.Entities.Concrete;
 using Abstodo.WebUI.Models;
 using AutoMapper;
@@ -16,10 +17,12 @@ namespace Abstodo.WebUI.Controllers
     {
         #region dependency injection
         private readonly ITaskService _taskService;
+        private readonly ICommonService _commonService;
         private readonly IProjectService _projectService;
         private readonly IMapper _mapper;
-        public TaskController(ITaskService taskService, IProjectService projectService, IMapper mapper)
+        public TaskController(ITaskService taskService, IProjectService projectService, ICommonService commonService, IMapper mapper)
         {
+            _commonService = commonService;
             _taskService = taskService;
             _projectService = projectService;
             _mapper = mapper;
@@ -29,13 +32,38 @@ namespace Abstodo.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-
-            #region working code
-            //List<TaskModel> result = _mapper.Map<List<TaskModel>>(await _taskService.GetAllAsync());
-            //return View(result);
-            #endregion
-
             return View();
+        }
+        [HttpGet("Task/LoadIndex")]
+        public async Task<IActionResult> LoadIndex()
+        {
+            try
+            {
+                int IDClaim = await _commonService.GetUserIDFromClaims((ClaimsIdentity)User.Identity);
+
+                int CompletedTaskCount = await _taskService.GetAllCompletedTaskCount(IDClaim);
+                int OpenTaskCount = await _taskService.GetAllOpenTaskCount(IDClaim);
+                int CompletedProjectCount = await _projectService.GetAllCompletedProjectCount(IDClaim);
+                int OpenProjectCount = await _projectService.GetAllOpenProjectCount(IDClaim);
+
+                IndexModel indexModel = new IndexModel
+                {
+                    CompletedTaskCount = CompletedTaskCount,
+                    OpenTaskCount = OpenTaskCount,
+                    CompletedProjectCount = CompletedProjectCount,
+                    OpenProjectCount = OpenProjectCount
+                };
+                return Json(new { data = indexModel });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Operation failed!\n" + ex.Message });
+            }
+
+            
+
+
+           
         }
         [HttpGet("Task/List/{projectID}")]
         public async Task<IActionResult> List([FromRoute] int projectID)

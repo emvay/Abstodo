@@ -9,7 +9,7 @@ namespace Abstodo.DataAccess.Concrete.EntityFramework
     {
         protected readonly EfAbstodoContext _context;
         protected readonly DbSet<TaskEntity> _dbSet;
-        public EfTaskRepository(EfAbstodoContext context) : base(context) 
+        public EfTaskRepository(EfAbstodoContext context) : base(context)
         {
             _context = context;
             _dbSet = context.Set<TaskEntity>();
@@ -17,14 +17,14 @@ namespace Abstodo.DataAccess.Concrete.EntityFramework
 
         public async Task CompleteTaskAsync(int ID)
         {
-            await _dbSet.Where(t => t.ID==ID).ExecuteUpdateAsync(b => b.SetProperty(u => u.StatusID, (int)StatusEnum.Done));
+            await _dbSet.Where(t => t.ID == ID).ExecuteUpdateAsync(b => b.SetProperty(u => u.StatusID, (int)StatusEnum.Done));
         }
 
         public async Task<List<TaskEntity>> GetTasksByProjectID(int ID)
         {
             //var tasks2= await _dbSet.ToListAsync();
             var tasks = await _context.Tasks
-            .Include(t => t.Project).Where(t=> t.ProjectID == ID).Select(t => new TaskEntity
+            .Include(t => t.Project).Where(t => t.ProjectID == ID).Select(t => new TaskEntity
             {
                 ID = t.ID,
                 Description = t.Description,
@@ -41,6 +41,15 @@ namespace Abstodo.DataAccess.Concrete.EntityFramework
             return tasks;
         }
 
+        public async Task<int> GetAllCompletedTaskCount(int userId)
+        {
+            return _context.Tasks.Count(x => x.StatusID == (int)StatusEnum.Done);
+        }
+
+        public async Task<int> GetAllOpenTaskCount(int userId)
+        {
+            return _context.Tasks.Count(x => x.StatusID == (int)StatusEnum.InProgress || x.StatusID ==  (int)StatusEnum.ToDo);
+        }
         //Returns all employees from the database.
         //public async Task<IEnumerable<Task>> GetAllEmployeesAsync()
         //{

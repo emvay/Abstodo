@@ -41,6 +41,16 @@ namespace Abstodo.Business.Concrete
             return await _projectRepository.GetAllAsync();
         }
 
+        public async Task<int> GetAllCompletedProjectCount(int userId)
+        {
+            return await _projectRepository.GetAllCompletedProjectCount(userId);
+        }
+
+        public async Task<int> GetAllOpenProjectCount(int userId)
+        {
+            return await _projectRepository.GetAllOpenProjectCount(userId);
+        }
+
         //public async Task<List<Project>> GetTasksByTaskIDAsync(int taskID)
         //{
         //    await _projectRepository.GetAllAsync(p=>p.UserID == userID);
