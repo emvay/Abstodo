@@ -26,7 +26,7 @@ namespace Abstodo.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string userName, string password)
+        public async Task<IActionResult> LoginControl(string userName, string password)
         {
             if (!string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password))
             {
@@ -96,10 +96,11 @@ namespace Abstodo.WebUI.Controllers
         }
 
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return Json(new { redirectToUrl = Url.Action("Login", "Account") });
         }
     }
 }

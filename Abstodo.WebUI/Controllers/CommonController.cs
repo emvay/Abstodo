@@ -1,5 +1,4 @@
 ﻿using Abstodo.Business.Abstract;
-using Abstodo.Entities.Concrete;
 using Abstodo.WebUI.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +14,7 @@ namespace Abstodo.WebUI.Controllers
             _projectService = projectService;
             _mapper = mapper;
         }
+        [HttpGet("Common/GetProjects")]
         public async Task<IActionResult> GetProjects()
         {
             try
@@ -29,5 +29,6 @@ namespace Abstodo.WebUI.Controllers
 
             //return Json(new { success = false, message = "Update Failed" });
         }
+        
     }
 }

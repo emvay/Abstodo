@@ -42,7 +42,8 @@
             url: '/Task/LoadIndex',
             type: 'GET',
             contentType: 'application/json',
-            success: function (result) {
+            success: function (result) 
+            {
 
                 $('.openTaskCountContainer').html('<div class="counter" data-target="' + result.data.OpenTaskCount + '">' + result.data.OpenTaskCount + '</div><span>Open Tasks</span>');
                 $('.completedTaskCountContainer').html('<div class="counter" data-target="' + result.data.CompletedTaskCount + '">' + result.data.CompletedTaskCount + '</div><span>Completed Tasks</span>');
